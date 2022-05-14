@@ -28,4 +28,4 @@ const Meal = db.define('meals', {
   },
 });
 
-module.exports = { User };
+module.exports = { Meal };
