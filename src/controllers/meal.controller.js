@@ -1,6 +1,4 @@
 const { Meal } = require('../models/meal.model');
-
-const { AppError } = require('../utils/appError');
 const { catchAsync } = require('../utils/catchAsync');
 
 const createMeal = catchAsync(async (req, res, next) => {
