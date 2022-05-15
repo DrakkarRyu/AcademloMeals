@@ -12,7 +12,7 @@ const restaurantExist = catchAsync(async (req, res, next) => {
   });
 
   if (!restaurant) {
-    return next(new AppError('User not found with id', 404));
+    return next(new AppError('restaurant not found with that id', 404));
   }
   req.restaurant = restaurant;
   next();

@@ -12,7 +12,7 @@ const mealExist = catchAsync(async (req, res, next) => {
   });
 
   if (!meal) {
-    return next(new AppError('User not found with id', 404));
+    return next(new AppError('meal not found with that id', 404));
   }
   req.meal = meal;
   next();
