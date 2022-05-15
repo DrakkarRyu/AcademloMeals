@@ -24,10 +24,32 @@ const getAllRestaurants = catchAsync(async (req, res, next) => {
   });
 });
 
-//const getRestaurantById = catchAsync(async (req, res, next) => {
-//})
+const getRestaurantById = catchAsync(async (req, res, next) => {
+  const { restaurant } = req;
+  res.status(200).json({
+    restaurant,
+  });
+});
+
+const updateRestaurant = catchAsync(async (req, res, next) => {
+  const { restaurant } = req;
+  const { name, address } = req.body;
+  await restaurant.update({ name, address });
+  res.status(200).json({ status: 'success' });
+});
+
+const deleteRestaurant = catchAsync(async (req, res, next) => {
+  const { restaurant } = req;
+  await restaurant.update({ status: 'deleted' });
+  res.status(200).json({
+    status: 'success',
+  });
+});
 
 module.exports = {
   createRestaurant,
   getAllRestaurants,
+  getRestaurantById,
+  updateRestaurant,
+  deleteRestaurant,
 };
