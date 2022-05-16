@@ -12,7 +12,7 @@ const reviewExist = catchAsync(async (req, res, next) => {
   });
 
   if (!review) {
-    return next(new AppError('order not found with that id', 404));
+    return next(new AppError('not exist a review with that id', 404));
   }
   req.review = review;
   next();

@@ -18,14 +18,15 @@ const updateReview = catchAsync(async (req, res, next) => {
   const { review } = req;
   const { comment, rating } = req.body;
   await review.update({ comment, rating });
-  res.status(200).json({ status: 'success' });
+  res.status(200).json({ review, status: 'success' });
 });
 
 const deleteReview = catchAsync(async (req, res, next) => {
   const { review } = req;
   await review.update({ status: 'deleted' });
   res.status(200).json({
-    status: 'success',
+    review,
+    status: 'deleted',
   });
 });
 
