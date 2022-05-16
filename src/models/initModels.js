@@ -8,6 +8,14 @@ const initModels = () => {
   // 1 Restaurant <----> M Meal
   Restaurant.hasMany(Meal);
   Meal.belongsTo(Restaurant);
+
+  //1 Restaurant <---> M Reviews
+  Restaurant.hasMany(Review);
+  Review.belongsTo(Restaurant);
+
+  // 1 User <-----> M Reviews
+  User.hasMany(Review);
+  Review.belongsTo(User);
 };
 
 module.exports = { initModels };

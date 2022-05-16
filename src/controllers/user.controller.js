@@ -1,4 +1,5 @@
 const { User } = require('../models/user.model');
+const { Review } = require('../models/review.model');
 
 // bcrypt
 const bcrypt = require('bcryptjs');
@@ -29,7 +30,16 @@ const createNewUser = catchAsync(async (req, res, next) => {
 
 const getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.findAll({
-    attributes: { exclude: ['password'] },
+    attributes: {
+      exclude: ['password'] /*,
+      include: [
+        {
+          model: Review,
+          attributes: { include: ['userId'], include: ['restaurantId']}
+        } 
+      ]
+    */,
+    },
   });
 
   res.status(201).json({
