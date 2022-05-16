@@ -18,7 +18,7 @@ const Review = db.define('reviews', {
     unique: true,
     allowNull: false,
   },
-  restauranId: {
+  restaurantId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
