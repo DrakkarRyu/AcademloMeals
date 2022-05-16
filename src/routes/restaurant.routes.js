@@ -5,6 +5,8 @@ const { restaurantExist } = require('../middlewares/restaurant.middlewares');
 
 //controllers
 
+const { createReview } = require('../controllers/review.controller');
+
 const {
   createRestaurant,
   getAllRestaurants,
@@ -24,5 +26,7 @@ router
   .get(restaurantExist, getRestaurantById)
   .patch(restaurantExist, updateRestaurant)
   .delete(restaurantExist, deleteRestaurant);
+
+router.post('/reviews/:id', createReview);
 
 module.exports = { restaurantRouter: router };
