@@ -2,11 +2,12 @@ const { Meal } = require('../models/meal.model');
 const { catchAsync } = require('../utils/catchAsync');
 
 const createMeal = catchAsync(async (req, res, next) => {
-  const { name, price } = req.body;
+  const { name, price, restaurantId } = req.body;
 
   const newMeal = await Meal.create({
     name,
     price,
+    restaurantId,
   });
   res.status(201).json({
     newMeal,
