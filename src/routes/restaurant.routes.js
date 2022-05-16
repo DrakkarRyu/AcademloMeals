@@ -2,6 +2,7 @@ const express = require('express');
 
 // middlewares
 const { restaurantExist } = require('../middlewares/restaurant.middlewares');
+const { reviewExist } = require('../middlewares/review.middlewares');
 
 //controllers
 
@@ -32,7 +33,7 @@ router
   .delete(restaurantExist, deleteRestaurant);
 
 router.post('/reviews/:id', createReview);
-router.put('/reviews/:restaurantId/:id', updateReview);
-router.delete('/reviews/:restaurantId/:id', deleteReview);
+router.put('/reviews/:restaurantId/:id', reviewExist, updateReview);
+router.delete('/reviews/:restaurantId/:id', reviewExist, deleteReview);
 
 module.exports = { restaurantRouter: router };
