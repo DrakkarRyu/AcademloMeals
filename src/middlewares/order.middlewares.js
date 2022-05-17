@@ -6,9 +6,8 @@ const { catchAsync } = require('../utils/catchAsync');
 
 // user exist
 const orderExist = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
   const order = await Order.findOne({
-    where: { id, status: 'active' },
+    where: { status: 'active' },
   });
 
   if (!order) {

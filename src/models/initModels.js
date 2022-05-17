@@ -16,6 +16,14 @@ const initModels = () => {
   // 1 User <-----> M Reviews
   User.hasMany(Review);
   Review.belongsTo(User);
+
+  //1 User <-----> M Orders
+  User.hasMany(Order);
+  Order.belongsTo(User);
+
+  //1 Meal <------> 1 Order
+  Meal.hasOne(Order);
+  Order.belongsTo(Meal);
 };
 
 module.exports = { initModels };

@@ -1,5 +1,6 @@
 const { User } = require('../models/user.model');
-const { Review } = require('../models/review.model');
+const jwt = require('jsonwebtoken');
+//const dotenv = require('dotenv');
 
 // bcrypt
 const bcrypt = require('bcryptjs');
@@ -31,14 +32,7 @@ const createNewUser = catchAsync(async (req, res, next) => {
 const getAllUsers = catchAsync(async (req, res, next) => {
   const users = await User.findAll({
     attributes: {
-      exclude: ['password'] /*,
-      include: [
-        {
-          model: Review,
-          attributes: { include: ['userId'], include: ['restaurantId']}
-        } 
-      ]
-    */,
+      exclude: ['password'],
     },
   });
 
@@ -57,11 +51,16 @@ const login = catchAsync(async (req, res, next) => {
   }
 
   // JWT
+  const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN,
+  });
 
   user.password = undefined;
 
   res.status(201).json({
     status: 'sucess',
+    token,
+    user,
   });
 });
 
