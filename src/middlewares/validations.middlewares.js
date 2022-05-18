@@ -14,6 +14,20 @@ const createUserValidations = [
     .withMessage('Password must be at least 8 characters long'),
 ];
 
+const createRestaurantValidations = [
+  body('name').notEmpty().withMessage('Name cannot be empty'),
+  body('address')
+    .notEmpty()
+    .withMessage('Address cannot be empty')
+    .isLength({ min: 10 })
+    .withMessage('Address must be at least 10 characters long'),
+  body('rating')
+    .notEmpty()
+    .withMessage('rating can not be empty')
+    .isInt({ min: 1, max: 5 })
+    .withMessage('rating must be a number from 1 to 5'),
+];
+
 const checkValidations = (req, res, next) => {
   const errors = validationResult(req);
 
@@ -32,5 +46,6 @@ const checkValidations = (req, res, next) => {
 
 module.exports = {
   createUserValidations,
+  createRestaurantValidations,
   checkValidations,
 };

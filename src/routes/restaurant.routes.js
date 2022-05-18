@@ -3,6 +3,10 @@ const express = require('express');
 // middlewares
 const { restaurantExist } = require('../middlewares/restaurant.middlewares');
 const { reviewExist } = require('../middlewares/review.middlewares');
+const {
+  createRestaurantValidations,
+  checkValidations,
+} = require('../middlewares/validations.middlewares');
 
 //controllers
 
@@ -23,7 +27,12 @@ const {
 const router = express.Router();
 
 // petitions
-router.post('/', createRestaurant);
+router.post(
+  '/',
+  createRestaurantValidations,
+  checkValidations,
+  createRestaurant
+);
 router.get('/', getAllRestaurants);
 
 router
