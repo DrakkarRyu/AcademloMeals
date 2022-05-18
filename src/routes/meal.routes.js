@@ -16,8 +16,8 @@ const {
 const router = express.Router();
 
 // petitions
-router.post('/:id', createMeal);
 router.get('/', getAllMeals);
+router.post('/:id', createMeal);
 
 router
   .route('/:id')

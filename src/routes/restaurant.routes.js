@@ -32,6 +32,7 @@ router
   .patch(restaurantExist, updateRestaurant)
   .delete(restaurantExist, deleteRestaurant);
 
+//petitions of reviews
 router.post('/reviews/:id', createReview);
 router.put('/reviews/:id', reviewExist, updateReview);
 router.delete('/reviews/:id', reviewExist, deleteReview);
