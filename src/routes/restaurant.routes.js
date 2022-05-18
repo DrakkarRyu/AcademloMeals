@@ -5,6 +5,7 @@ const { restaurantExist } = require('../middlewares/restaurant.middlewares');
 const { reviewExist } = require('../middlewares/review.middlewares');
 const {
   protectAdmin,
+  protectAccountOwner,
   protectToken,
 } = require('../middlewares/user.middlewares');
 const {
@@ -51,7 +52,7 @@ router
 
 //petitions of reviews
 router.post('/reviews/:id', createReview);
-router.put('/reviews/:id', reviewExist, updateReview);
-router.delete('/reviews/:id', reviewExist, deleteReview);
+router.patch('/reviews/:id', reviewExist, protectAccountOwner, updateReview);
+router.delete('/reviews/:id', reviewExist, protectAccountOwner, deleteReview);
 
 module.exports = { restaurantRouter: router };
