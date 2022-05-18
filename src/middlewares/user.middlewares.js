@@ -54,13 +54,6 @@ const protectToken = catchAsync(async (req, res, next) => {
   next();
 });
 
-const protectEmployee = catchAsync(async (req, res, next) => {
-  if (req.sessionUser.role !== 'employee') {
-    return next(new AppError('access not granted', 407));
-  }
-  next();
-});
-
 const protectAccountOwner = catchAsync(async (req, res, next) => {
   // Get current session user and the user that is going to be updated
   const { sessionUser, user } = req;
