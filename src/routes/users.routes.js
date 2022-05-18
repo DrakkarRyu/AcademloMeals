@@ -2,6 +2,7 @@ const express = require('express');
 
 // middlewares
 const { userExist } = require('../middlewares/user.middlewares');
+const { orderExist } = require('../middlewares/order.middlewares');
 const { protectToken } = require('../middlewares/user.middlewares');
 
 // controllers
@@ -11,6 +12,8 @@ const {
   login,
   updateUser,
   deleteUser,
+  getOrders,
+  getOrdersById,
 } = require('../controllers/user.controller');
 
 const router = express.Router();
@@ -22,5 +25,7 @@ router.use(protectToken);
 router.get('/', getAllUsers);
 router.patch('/:id', userExist, updateUser);
 router.delete('/:id', userExist, deleteUser);
+router.get('/orders', orderExist, getOrders);
+router.get('/orders/:id', orderExist, getOrdersById);
 
 module.exports = { userRouter: router };
