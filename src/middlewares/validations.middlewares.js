@@ -1,10 +1,10 @@
 const { body, validationResult } = require('express-validator');
 
 const createUserValidations = [
-  body('name').notEmpty().withMessage('Name cannot be empty'),
+  body('name').notEmpty().withMessage('Name can not be empty'),
   body('email')
     .notEmpty()
-    .withMessage('Email cannot be empty')
+    .withMessage('Email can not be empty')
     .isEmail()
     .withMessage('Must be a valid email'),
   body('password')
@@ -15,10 +15,10 @@ const createUserValidations = [
 ];
 
 const createRestaurantValidations = [
-  body('name').notEmpty().withMessage('Name cannot be empty'),
+  body('name').notEmpty().withMessage('Name can not be empty'),
   body('address')
     .notEmpty()
-    .withMessage('Address cannot be empty')
+    .withMessage('Address can not be empty')
     .isLength({ min: 10 })
     .withMessage('Address must be at least 10 characters long'),
   body('rating')
@@ -26,6 +26,15 @@ const createRestaurantValidations = [
     .withMessage('rating can not be empty')
     .isInt({ min: 1, max: 5 })
     .withMessage('rating must be a number from 1 to 5'),
+];
+
+const createMealValidations = [
+  body('name').notEmpty().withMessage('Name can not be empty'),
+  body('price')
+    .notEmpty()
+    .withMessage('Price can not be empty')
+    .isInt()
+    .withMessage('Price need to be an int number '),
 ];
 
 const checkValidations = (req, res, next) => {
@@ -47,5 +56,6 @@ const checkValidations = (req, res, next) => {
 module.exports = {
   createUserValidations,
   createRestaurantValidations,
+  createMealValidations,
   checkValidations,
 };

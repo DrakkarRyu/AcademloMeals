@@ -3,6 +3,7 @@ const express = require('express');
 // middlewares
 const { restaurantExist } = require('../middlewares/restaurant.middlewares');
 const { reviewExist } = require('../middlewares/review.middlewares');
+const { protectAdmin } = require('../middlewares/user.middlewares');
 const {
   createRestaurantValidations,
   checkValidations,
@@ -38,8 +39,8 @@ router.get('/', getAllRestaurants);
 router
   .route('/:id')
   .get(restaurantExist, getRestaurantById)
-  .patch(restaurantExist, updateRestaurant)
-  .delete(restaurantExist, deleteRestaurant);
+  .patch(restaurantExist, protectAdmin, updateRestaurant)
+  .delete(restaurantExist, protectAdmin, deleteRestaurant);
 
 //petitions of reviews
 router.post('/reviews/:id', createReview);

@@ -2,6 +2,7 @@ const express = require('express');
 
 // middlewares
 const { orderExist } = require('../middlewares/order.middlewares');
+const { protectAccountOwner } = require('../middlewares/user.middlewares');
 
 //controllers
 
@@ -21,7 +22,7 @@ router.get('/me', orderExist, getOrders);
 
 router
   .route('/:id')
-  .patch(orderExist, updateOrder)
-  .delete(orderExist, deleteOrder);
+  .patch(orderExist, protectAccountOwner, updateOrder)
+  .delete(orderExist, protectAccountOwner, deleteOrder);
 
 module.exports = { orderRouter: router };
