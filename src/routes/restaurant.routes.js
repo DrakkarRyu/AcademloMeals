@@ -3,7 +3,10 @@ const express = require('express');
 // middlewares
 const { restaurantExist } = require('../middlewares/restaurant.middlewares');
 const { reviewExist } = require('../middlewares/review.middlewares');
-const { protectAdmin } = require('../middlewares/user.middlewares');
+const {
+  protectAdmin,
+  protectToken,
+} = require('../middlewares/user.middlewares');
 const {
   createRestaurantValidations,
   checkValidations,
@@ -28,17 +31,21 @@ const {
 const router = express.Router();
 
 // petitions
+router.get('/', getAllRestaurants);
+router.get('/:id', restaurantExist, getRestaurantById);
+
+//protect token start here
+router.use(protectToken);
+
 router.post(
   '/',
   createRestaurantValidations,
   checkValidations,
   createRestaurant
 );
-router.get('/', getAllRestaurants);
 
 router
   .route('/:id')
-  .get(restaurantExist, getRestaurantById)
   .patch(restaurantExist, protectAdmin, updateRestaurant)
   .delete(restaurantExist, protectAdmin, deleteRestaurant);
 

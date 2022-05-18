@@ -27,7 +27,10 @@ const router = express.Router();
 // petitions
 router.post('/signup', createUserValidations, checkValidations, createNewUser);
 router.post('/login', login);
+
+//protect token start here
 router.use(protectToken);
+
 router.get('/', getAllUsers);
 router.patch('/:id', userExist, protectAccountOwner, updateUser);
 router.delete('/:id', userExist, protectAccountOwner, deleteUser);

@@ -2,7 +2,10 @@ const express = require('express');
 
 // middlewares
 const { orderExist } = require('../middlewares/order.middlewares');
-const { protectAccountOwner } = require('../middlewares/user.middlewares');
+const {
+  protectAccountOwner,
+  protectToken,
+} = require('../middlewares/user.middlewares');
 
 //controllers
 
@@ -15,9 +18,11 @@ const {
 
 const router = express.Router();
 
+//protect token start here
+router.use(protectToken);
+
 // petitions
 router.post('/', createOrder);
-//router.use();
 router.get('/me', orderExist, getOrders);
 
 router

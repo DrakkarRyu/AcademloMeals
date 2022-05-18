@@ -2,7 +2,10 @@ const express = require('express');
 
 // middlewares
 const { mealExist } = require('../middlewares/meal.middlewares');
-const { protectAdmin } = require('../middlewares/user.middlewares');
+const {
+  protectAdmin,
+  protectToken,
+} = require('../middlewares/user.middlewares');
 const {
   createMealValidations,
   checkValidations,
@@ -22,11 +25,15 @@ const router = express.Router();
 
 // petitions
 router.get('/', getAllMeals);
+router.get('/:id', mealExist, getMealById);
+
+//protect token start here
+router.use(protectToken);
+
 router.post('/:id', createMealValidations, checkValidations, createMeal);
 
 router
   .route('/:id')
-  .get(mealExist, getMealById)
   .patch(mealExist, protectAdmin, updateMeal)
   .delete(mealExist, protectAdmin, deleteMeal);
 
