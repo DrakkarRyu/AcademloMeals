@@ -2,6 +2,7 @@ const express = require('express');
 
 // middlewares
 const { userExist } = require('../middlewares/user.middlewares');
+const { protectToken } = require('../middlewares/user.middlewares');
 
 // controllers
 const {
@@ -18,6 +19,7 @@ const router = express.Router();
 router.post('/signup', createNewUser);
 router.get('/', getAllUsers);
 router.post('/login', login);
+router.use(protectToken);
 router.patch('/:id', userExist, updateUser);
 router.delete('/:id', userExist, deleteUser);
 
