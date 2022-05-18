@@ -5,7 +5,9 @@ const { User } = require('../models/user.model');
 const { catchAsync } = require('../utils/catchAsync');
 
 const createOrder = catchAsync(async (req, res, next) => {
-  const { quantity, mealId, userId, totalPrice } = req.body;
+  const { quantity, mealId, userId } = req.body;
+  const meal = await Meal.findOne({ where: { id: mealId } });
+  const totalPrice = meal.price * quantity;
 
   const newOrder = await Order.create({
     quantity,
