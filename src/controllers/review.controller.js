@@ -17,14 +17,14 @@ const createReview = catchAsync(async (req, res, next) => {
 });
 
 const updateReview = catchAsync(async (req, res, next) => {
-  const { review } = req;
+  const { review } = req.params;
   const { comment, rating } = req.body;
   await review.update({ comment, rating });
   res.status(200).json({ review, status: 'success' });
 });
 
 const deleteReview = catchAsync(async (req, res, next) => {
-  const { review } = req;
+  const { review } = req.params;
   await review.update({ status: 'deleted' });
   res.status(200).json({
     review,

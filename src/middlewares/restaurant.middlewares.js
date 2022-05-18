@@ -18,4 +18,16 @@ const restaurantExist = catchAsync(async (req, res, next) => {
   next();
 });
 
-module.exports = { restaurantExist };
+const existRestaurantbyResId = catchAsync(async (req, res, next) => {
+  const { restaurantId } = req.params;
+  const restaurant = await Restaurant.findOne({
+    where: { id: restaurantId, status: 'active' },
+  });
+  if (!restaurant) {
+    return next(new AppError('restaurant not found with that id', 404));
+  }
+  req.restaurant = restaurant;
+  next();
+});
+
+module.exports = { restaurantExist, existRestaurantbyResId };
