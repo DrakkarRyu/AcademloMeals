@@ -1,6 +1,7 @@
 const { User } = require('../models/user.model');
 const { Order } = require('../models/order.model');
 const { Restaurant } = require('../models/restaurant.model');
+const { Meal } = require('../models/meal.model');
 const jwt = require('jsonwebtoken');
 //const dotenv = require('dotenv');
 
@@ -93,7 +94,8 @@ const getOrders = catchAsync(async (req, res, next) => {
   const order = await Order.findAll({
     include: [
       {
-        model: Restaurant,
+        model: Meal,
+        include: [{ model: Restaurant }],
       },
     ],
   });
@@ -109,7 +111,8 @@ const getOrdersById = catchAsync(async (req, res, next) => {
     where: { id },
     include: [
       {
-        model: Restaurant,
+        model: Meal,
+        include: [{ model: Restaurant }],
       },
     ],
   });
