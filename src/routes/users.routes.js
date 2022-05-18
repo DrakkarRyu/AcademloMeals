@@ -7,7 +7,10 @@ const {
   protectToken,
   protectAccountOwner,
 } = require('../middlewares/user.middlewares');
-
+const {
+  createUserValidations,
+  checkValidations,
+} = require('../middlewares/validations.middlewares');
 // controllers
 const {
   createNewUser,
@@ -22,7 +25,7 @@ const {
 const router = express.Router();
 
 // petitions
-router.post('/signup', createNewUser);
+router.post('/signup', createUserValidations, checkValidations, createNewUser);
 router.post('/login', login);
 router.use(protectToken);
 router.get('/', getAllUsers);
