@@ -21,7 +21,9 @@ const createOrder = catchAsync(async (req, res, next) => {
 });
 
 const getOrders = catchAsync(async (req, res, next) => {
+  const { sessionUser } = req;
   const order = await Order.findAll({
+    where: { userId: sessionUser.id },
     include: [
       {
         model: Meal,
