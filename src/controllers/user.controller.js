@@ -92,7 +92,6 @@ const deleteUser = catchAsync(async (req, res, next) => {
 
 const getOrders = catchAsync(async (req, res, next) => {
   const { sessionUser } = req;
-  console.log(sessionUser);
   const orders = await Order.findAll({
     where: { userId: sessionUser.id },
     include: [
@@ -109,9 +108,9 @@ const getOrders = catchAsync(async (req, res, next) => {
 
 const getOrdersById = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-
+  const { sessionUser } = req;
   const order = await Order.findOne({
-    where: { id },
+    where: { id, userId: sessionUser.id },
     include: [
       {
         model: Meal,

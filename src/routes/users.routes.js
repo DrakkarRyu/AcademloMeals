@@ -36,6 +36,6 @@ router.get('/', getAllUsers);
 router.patch('/:id', userExist, protectAccountOwner, updateUser);
 router.delete('/:id', userExist, protectAccountOwner, deleteUser);
 router.get('/orders', getOrders);
-router.get('/orders/:id', getOrdersById);
+router.get('/orders/:id', orderExist, getOrdersById);
 
 module.exports = { userRouter: router };
