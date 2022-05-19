@@ -17,19 +17,33 @@ const createReview = catchAsync(async (req, res, next) => {
 });
 
 const updateReview = catchAsync(async (req, res, next) => {
-  const { review } = req.params;
+  const { review } = req;
+  const { sessionUser } = req;
+  const { restaurant } = req;
   const { comment, rating } = req.body;
-  await review.update({ comment, rating });
+
+  await review.update({
+    comment,
+    rating,
+    restaurantId: restaurant.id,
+    userId: sessionUser.id,
+  });
+
   res.status(200).json({ review, status: 'success' });
 });
 
 const deleteReview = catchAsync(async (req, res, next) => {
-  const { review } = req.params;
-  await review.update({ status: 'deleted' });
-  res.status(200).json({
-    review,
+  const { review } = req;
+  const { sessionUser } = req;
+  const { restaurant } = req;
+
+  await review.update({
     status: 'deleted',
+    restaurantId: restaurant.id,
+    userId: sessionUser.id,
   });
+
+  res.status(200).json({ review, status: 'success' });
 });
 
 module.exports = {
