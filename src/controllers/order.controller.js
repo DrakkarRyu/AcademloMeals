@@ -4,22 +4,26 @@ const { Meal } = require('../models/meal.model');
 const { catchAsync } = require('../utils/catchAsync');
 
 const createOrder = catchAsync(async (req, res, next) => {
-  const { quantity, mealId } = req.body;
   const { sessionUser } = req;
-  const meal = await Meal.findOne({ where: { id: mealId } });
-  const totalPrice = meal.price * quantity;
+  const { quantity, mealId } = req.body;
+
+  const meal = await Meal.findOne({
+    where: { id: mealId },
+  });
+  if (!meal) {
+    return next(new AppError('meal does not exist with given that id', 404));
+  }
 
   const newOrder = await Order.create({
     quantity,
     mealId,
     userId: sessionUser.id,
-    totalPrice,
+    totalPrice: meal.price * quantity,
   });
   res.status(201).json({
     newOrder,
   });
 });
-
 const getOrders = catchAsync(async (req, res, next) => {
   const { sessionUser } = req;
   const order = await Order.findAll({
@@ -27,8 +31,7 @@ const getOrders = catchAsync(async (req, res, next) => {
     include: [
       {
         model: Meal,
-        where: { status: 'active' },
-        include: [{ model: Restaurant, where: { status: 'active' } }],
+        include: [{ model: Restaurant }],
       },
     ],
   });
