@@ -9,7 +9,7 @@ const { catchAsync } = require('../utils/catchAsync');
 const reviewExist = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const review = await Review.findOne({
-    where: { id, status: 'avaible' },
+    where: { id, status: 'active' },
     include: [{ model: User, attributes: { exclude: ['password'] } }],
   });
 
