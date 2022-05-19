@@ -42,6 +42,7 @@ const updateOrder = catchAsync(async (req, res, next) => {
   await order.update({ status: 'completed' });
   res.status(200).json({
     status: 'success',
+    order,
   });
 });
 
@@ -50,6 +51,7 @@ const deleteOrder = catchAsync(async (req, res, next) => {
   await order.update({ status: 'cancelled' });
   res.status(200).json({
     status: 'success',
+    order,
   });
 });
 

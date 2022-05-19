@@ -29,7 +29,7 @@ const Review = db.define('reviews', {
   status: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'avaible',
+    defaultValue: 'active',
   },
 });
 
