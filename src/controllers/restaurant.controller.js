@@ -22,11 +22,9 @@ const getAllRestaurants = catchAsync(async (req, res, next) => {
     include: [
       {
         model: Meal,
-        where: { status: 'active' },
       },
       {
         model: Review,
-        where: { status: 'active' },
       },
     ],
   });

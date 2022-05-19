@@ -37,6 +37,19 @@ const createMealValidations = [
     .withMessage('Price need to be an int number '),
 ];
 
+const createReviewsValidations = [
+  body('comment')
+    .notEmpty()
+    .withMessage('Comment can not be empty')
+    .isLength({ min: 10 })
+    .withMessage('the comment must be at least 10 characters long'),
+  body('rating')
+    .notEmpty()
+    .withMessage('rating can not be empty')
+    .isInt({ min: 1, max: 5 })
+    .withMessage('rating must be a number from 1 to 5'),
+];
+
 const checkValidations = (req, res, next) => {
   const errors = validationResult(req);
 
@@ -57,5 +70,6 @@ module.exports = {
   createUserValidations,
   createRestaurantValidations,
   createMealValidations,
+  createReviewsValidations,
   checkValidations,
 };

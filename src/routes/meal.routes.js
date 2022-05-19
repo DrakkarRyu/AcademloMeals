@@ -30,7 +30,13 @@ router.get('/:id', mealExist, getMealById);
 //protect token start here
 router.use(protectToken);
 
-router.post('/:id', createMealValidations, checkValidations, createMeal);
+router.post(
+  '/:id',
+  protectAdmin,
+  createMealValidations,
+  checkValidations,
+  createMeal
+);
 
 router
   .route('/:id')

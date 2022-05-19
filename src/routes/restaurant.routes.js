@@ -13,6 +13,7 @@ const {
 } = require('../middlewares/user.middlewares');
 const {
   createRestaurantValidations,
+  createReviewsValidations,
   checkValidations,
 } = require('../middlewares/validations.middlewares');
 
@@ -54,7 +55,12 @@ router
   .delete(restaurantExist, protectAdmin, deleteRestaurant);
 
 //petitions of reviews
-router.post('/reviews/:id', createReview);
+router.post(
+  '/reviews/:id',
+  createReviewsValidations,
+  checkValidations,
+  createReview
+);
 router.patch(
   '/reviews/:restaurantId/:id',
   existRestaurantbyResId,
