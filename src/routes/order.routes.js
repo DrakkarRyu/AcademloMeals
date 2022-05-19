@@ -23,7 +23,7 @@ router.use(protectToken);
 
 // petitions
 router.post('/', createOrder);
-router.get('/me', orderExist, getOrders);
+router.get('/me', getOrders);
 
 router
   .route('/:id')
