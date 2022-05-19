@@ -44,6 +44,7 @@ router.use(protectToken);
 
 router.post(
   '/',
+  protectAdmin,
   createRestaurantValidations,
   checkValidations,
   createRestaurant
