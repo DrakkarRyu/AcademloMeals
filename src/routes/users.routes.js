@@ -35,7 +35,7 @@ router.use(protectToken);
 router.get('/', getAllUsers);
 router.patch('/:id', userExist, protectAccountOwner, updateUser);
 router.delete('/:id', userExist, protectAccountOwner, deleteUser);
-router.get('/orders', orderExist, getOrders);
-router.get('/orders/:id', orderExist, getOrdersById);
+router.get('/orders', getOrders);
+router.get('/orders/:id', getOrdersById);
 
 module.exports = { userRouter: router };

@@ -91,7 +91,10 @@ const deleteUser = catchAsync(async (req, res, next) => {
 });
 
 const getOrders = catchAsync(async (req, res, next) => {
-  const order = await Order.findAll({
+  const { sessionUser } = req;
+  console.log(sessionUser);
+  const orders = await Order.findAll({
+    where: { userId: sessionUser.id },
     include: [
       {
         model: Meal,
@@ -100,7 +103,7 @@ const getOrders = catchAsync(async (req, res, next) => {
     ],
   });
   res.status(201).json({
-    order,
+    orders,
   });
 });
 
